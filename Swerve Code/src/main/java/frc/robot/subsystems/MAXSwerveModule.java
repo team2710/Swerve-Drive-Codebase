@@ -15,10 +15,9 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
-import com.revrobotics.SparkPIDController;
+import com.revrobotics.jni.CANSparkJNI;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -28,17 +27,16 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.ModuleConstants;
+import frc.robot.Constants.OperatorConstants.ModuleConstants;
 
 public class MAXSwerveModule {
   private final TalonFX m_drivingKraken;
-  private final CANSparkMax m_turningSparkMax;
+  private final CANSparkJNI m_turningSparkMax;
 
  // private final RelativeEncoder m_drivingEncoder;
   private final AbsoluteEncoder m_turningEncoder;
 
-  private final SparkPIDController m_turningPIDController;
+  private final SparkClosedLoopController m_turningPIDController;
   private VelocityDutyCycle m_velocityPID = new VelocityDutyCycle(0);
   public  Orchestra  m_music = new Orchestra(); 
   private DutyCycleOut m_openLoop = new DutyCycleOut(0);
